@@ -17,25 +17,25 @@ namespace PrestadorService.Data.Repositories
             this._dbSet = context.Set<T>();
         }
 
-        public void Delete(T entity)
+        public virtual void Delete(T entity)
         {
             _dbSet.Remove(entity);
             Save();
         }
 
-        public T Insert(T entity)
+        public virtual T Insert(T entity)
         {
             var result = _dbSet.Add(entity);
             Save();
             return result.Entity;
         }
 
-        public ICollection<T> List()
+        public virtual ICollection<T> List()
         {
             return _dbSet.ToList();
         }
 
-        public T Update(T entity)
+        public virtual T Update(T entity)
         {
             var result = _dbSet.Update(entity);
             Save();
