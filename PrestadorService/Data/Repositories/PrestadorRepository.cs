@@ -10,7 +10,7 @@ namespace PrestadorService.Data.Repositories
     public class PrestadorRepository: GenericRepository<Prestador>, IPrestadorRepository<Prestador>
     {
         private readonly PrestadorDbContext _prestadorDbContext;
-        private readonly DbSet<Prestador> _dbSet;
+        private new readonly DbSet<Prestador> _dbSet;
 
         public PrestadorRepository(PrestadorDbContext prestadorDbContext) : base(prestadorDbContext)
         {
@@ -22,6 +22,10 @@ namespace PrestadorService.Data.Repositories
             return _dbSet.Include(i => i.Endereco).Include(i => i.DadosBancarios).Where(c => c.PrestadorId == id).FirstOrDefault();
         }
 
-        
+        public override ICollection<Prestador> List()
+        {
+            return _dbSet.Include(i => i.Endereco).Include(i => i.DadosBancarios).ToList();
+        }
+
     }
 }
