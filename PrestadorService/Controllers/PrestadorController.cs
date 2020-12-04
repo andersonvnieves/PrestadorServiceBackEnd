@@ -63,5 +63,11 @@ namespace PrestadorService.Controllers
             return _prestadorRepository.List();
         }
 
+        [HttpDelete]
+        public IActionResult Delete(int id)
+        {
+            return Ok();
+        }
+
     }
 }
