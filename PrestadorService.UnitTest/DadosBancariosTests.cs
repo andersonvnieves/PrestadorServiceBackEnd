@@ -4,6 +4,7 @@ using PrestadorService.Model;
 using PrestadorService.UnitTest.MockRepositories;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Xunit;
 
@@ -12,12 +13,12 @@ namespace PrestadorService.UnitTest
     public class DadosBancariosTests
     {
         [Fact]
-        public void DeveCadastrarPrestadorComDadosValidos()
+        public void DeveCadastrarDadosBancariosComDadosValidos()
         {
             //Arrange
             IDadosBancariosRepository<DadosBancarios> dadosBancariosRepository = new DadosBancariosMockRepository();
             IPrestadorRepository<Prestador> prestadorRepository = new PrestadorMockRepository();
-            var prestadorController = new DadosBancariosController(dadosBancariosRepository, prestadorRepository);
+            var dadosBancariosController = new DadosBancariosController(dadosBancariosRepository, prestadorRepository);
 
             var prestadorId = 1;
             var dadosBancaraios = new DadosBancarios()
@@ -28,7 +29,7 @@ namespace PrestadorService.UnitTest
             };
 
             //Act
-            var response = prestadorController.Post(dadosBancaraios, prestadorId);
+            var response = dadosBancariosController.Post(dadosBancaraios, prestadorId);
 
             //Assert
             Assert.True(response.DadosBancariosId > 0);
@@ -40,12 +41,12 @@ namespace PrestadorService.UnitTest
 
 
         [Fact]
-        public void DeveAlterarDadosDoPrestadorComDadosValidos()
+        public void DeveAlterarDadosDoDadosBancariosComDadosValidos()
         {
             //Arrange
             IDadosBancariosRepository<DadosBancarios> dadosBancariosRepository = new DadosBancariosMockRepository();
             IPrestadorRepository<Prestador> prestadorRepository = new PrestadorMockRepository();
-            var prestadorController = new DadosBancariosController(dadosBancariosRepository, prestadorRepository);
+            var dadosBancariosController = new DadosBancariosController(dadosBancariosRepository, prestadorRepository);
 
             var dadosBancaraios = new DadosBancarios()
             {
@@ -56,7 +57,7 @@ namespace PrestadorService.UnitTest
             };
 
             //Act
-            var response = prestadorController.Put(dadosBancaraios);
+            var response = dadosBancariosController.Put(dadosBancaraios);
 
             //Assert
             Assert.True(response.DadosBancariosId > 0);
@@ -67,22 +68,39 @@ namespace PrestadorService.UnitTest
         }
 
         [Fact]
-        public void DeveBuscarPrestadorPorId()
+        public void DeveBuscarDadosBancariosPorId()
         {
             //Arrange
             IDadosBancariosRepository<DadosBancarios> dadosBancariosRepository = new DadosBancariosMockRepository();
             IPrestadorRepository<Prestador> prestadorRepository = new PrestadorMockRepository();
-            var prestadorController = new DadosBancariosController(dadosBancariosRepository, prestadorRepository);
+            var dadosBancariosController = new DadosBancariosController(dadosBancariosRepository, prestadorRepository);
 
 
             //Act
-            var response = prestadorController.Get(1);
+            var response = dadosBancariosController.Get(1);
 
             //Assert
             Assert.True(response.DadosBancariosId > 0);
             Assert.NotNull(response.Banco);
             Assert.NotNull(response.Agencia);
             Assert.NotNull(response.ContaCorrente);
+        }
+
+        [Fact]
+        public void DeveExcluirDadosBancarios()
+        {
+            //Arrange
+            IDadosBancariosRepository<DadosBancarios> dadosBancariosRepository = new DadosBancariosMockRepository();
+            IPrestadorRepository<Prestador> prestadorRepository = new PrestadorMockRepository();
+            var dadosBancariosController = new DadosBancariosController(dadosBancariosRepository, prestadorRepository);
+
+            //Act
+            var response = dadosBancariosController.Delete(1);
+
+            //Assert
+            Assert.Equal("Sucesso ao Excluir Dados Bancários", response);
+            Assert.True(!dadosBancariosRepository.List().Any());
+
         }
     }
 }

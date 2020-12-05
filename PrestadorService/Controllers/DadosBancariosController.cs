@@ -71,5 +71,24 @@ namespace PrestadorService.Controllers
         {
             return _dadosBancariosRepository.GetById(id);
         }
+
+        [HttpDelete]
+        public string Delete(int id)
+        {
+            var dadosBancariosParaDeletar = _dadosBancariosRepository.GetById(id);
+            if (dadosBancariosParaDeletar != null)
+            {
+                var prestador = _prestadorRepository.GetPrestadorWithDadosBancariosId(id);
+                prestador.DadosBancarios = null;
+                _prestadorRepository.Update(prestador);
+
+                _dadosBancariosRepository.Delete(dadosBancariosParaDeletar);
+                return "Sucesso ao Excluir Dados Bancários";
+            }
+            else
+            {
+                throw new Exception("Não foram encontrados Dados Bancários com os dados fornecidos.");
+            }
+        }
     }
 }
