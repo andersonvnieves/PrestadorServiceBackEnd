@@ -5,6 +5,7 @@ using PrestadorService.Model;
 using PrestadorService.UnitTest.MockRepositories;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Xunit;
 
@@ -104,7 +105,7 @@ namespace PrestadorService.UnitTest
         }
 
         [Fact]
-        public void DeveListarTodosOsPrestadores()
+        public void DeveExcluirPrestadoreComIdInformadoEendereco()
         {
             //Arrange
             IPrestadorRepository<Prestador> prestadorRepository = new PrestadorMockRepository();
@@ -115,6 +116,22 @@ namespace PrestadorService.UnitTest
 
             //Assert
             Assert.NotEmpty(response);
+        }
+
+        [Fact]
+        public void DeveExcluirPrestadoreComIdInformadoEenderecoEDadosBancariosSeHouver()
+        {
+            //Arrange
+            IPrestadorRepository<Prestador> prestadorRepository = new PrestadorMockRepository();
+            var prestadorController = new PrestadorController(prestadorRepository);
+
+            //Act
+            var response = prestadorController.Delete(1);
+
+            //Assert
+            Assert.Equal("Sucesso ao Excluir o Prestador", response);
+            Assert.True(!prestadorRepository.List().Any());
+            
         }
     }
 }

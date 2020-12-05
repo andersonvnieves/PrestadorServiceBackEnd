@@ -22,6 +22,16 @@ namespace PrestadorService.Data.Repositories
             return _dbSet.Include(i => i.Endereco).Include(i => i.DadosBancarios).Where(c => c.PrestadorId == id).FirstOrDefault();
         }
 
+        public Prestador GetPrestadorWithDadosBancariosId(int id)
+        {
+            return _dbSet.Include(i => i.DadosBancarios).Where(c => c.DadosBancarios.DadosBancariosId == id).FirstOrDefault();
+        }
+
+        public Prestador GetPrestadorWithEnderecoId(int id)
+        {
+            return _dbSet.Include(i => i.Endereco).Where(c => c.Endereco.EnderecoId == id).FirstOrDefault();
+        }
+
         public override ICollection<Prestador> List()
         {
             return _dbSet.Include(i => i.Endereco).Include(i => i.DadosBancarios).ToList();

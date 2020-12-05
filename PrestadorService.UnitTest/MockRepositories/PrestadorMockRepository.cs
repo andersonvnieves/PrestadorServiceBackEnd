@@ -59,5 +59,15 @@ namespace PrestadorService.UnitTest.MockRepositories
             _prestador.Add(entity);
             return entity;
         }
+
+        public Prestador GetPrestadorWithDadosBancariosId(int id)
+        {
+            return _prestador.Where(c => c.DadosBancarios.DadosBancariosId == id).FirstOrDefault();
+        }
+
+        public Prestador GetPrestadorWithEnderecoId(int id)
+        {
+            return _prestador.Where(c => c.Endereco.EnderecoId == id).FirstOrDefault();
+        }
     }
 }

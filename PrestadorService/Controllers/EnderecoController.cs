@@ -72,6 +72,25 @@ namespace PrestadorService.Controllers
         public Endereco Get(int id)
         {
             return _enderecoRepository.GetById(id);
-        }        
+        }
+
+        [HttpDelete]
+        public string Delete(int id)
+        {
+            var enderecoParaDeletar = _enderecoRepository.GetById(id);
+            if (enderecoParaDeletar != null)
+            {
+                var prestador = _prestadorRepository.GetPrestadorWithEnderecoId(id);
+                prestador.Endereco = null;
+                _prestadorRepository.Update(prestador);
+
+                _enderecoRepository.Delete(enderecoParaDeletar);
+                return "Sucesso ao Excluir a o Endereço";
+            }
+            else
+            {
+                throw new Exception("Não foi encontrado um Endereço com os dados fornecidos.");
+            }
+        }
     }
 }

@@ -4,6 +4,7 @@ using PrestadorService.Model;
 using PrestadorService.UnitTest.MockRepositories;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Xunit;
 
@@ -12,12 +13,12 @@ namespace PrestadorService.UnitTest
     public class EnderecoTests
     {
         [Fact]
-        public void DeveCadastrarPrestadorComDadosValidos()
+        public void DeveCadastrarEnderecoComDadosValidos()
         {
             //Arrange
             IEnderecoRepository<Endereco> enderecoRepository = new EnderecoMockRepository();
             IPrestadorRepository<Prestador> prestadorRepository = new PrestadorMockRepository();
-            var prestadorController = new EnderecoController(prestadorRepository, enderecoRepository);
+            var enderecoController = new EnderecoController(prestadorRepository, enderecoRepository);
 
             var prestadorId = 1;
             var endereco = new Endereco()
@@ -32,7 +33,7 @@ namespace PrestadorService.UnitTest
             };
 
             //Act
-            var response = prestadorController.Post(endereco, prestadorId);
+            var response = enderecoController.Post(endereco, prestadorId);
 
             //Assert
             Assert.True(response.EnderecoId > 0);
@@ -48,12 +49,12 @@ namespace PrestadorService.UnitTest
 
 
         [Fact]
-        public void DeveAlterarDadosDoPrestadorComDadosValidos()
+        public void DeveAlterarDadosDoEnderecoComDadosValidos()
         {
             //Arrange
             IEnderecoRepository<Endereco> enderecoRepository = new EnderecoMockRepository();
             IPrestadorRepository<Prestador> prestadorRepository = new PrestadorMockRepository();
-            var prestadorController = new EnderecoController(prestadorRepository, enderecoRepository);
+            var enderecoController = new EnderecoController(prestadorRepository, enderecoRepository);
 
             var endereco = new Endereco()
             {
@@ -68,7 +69,7 @@ namespace PrestadorService.UnitTest
             };
 
             //Act
-            var response = prestadorController.Put(endereco);
+            var response = enderecoController.Put(endereco);
 
             //Assert
             Assert.True(response.EnderecoId > 0);
@@ -83,16 +84,16 @@ namespace PrestadorService.UnitTest
         }
 
         [Fact]
-        public void DeveBuscarPrestadorPorId()
+        public void DeveBuscarEnderecoPorId()
         {
             //Arrange
             IEnderecoRepository<Endereco> enderecoRepository = new EnderecoMockRepository();
             IPrestadorRepository<Prestador> prestadorRepository = new PrestadorMockRepository();
-            var prestadorController = new EnderecoController(prestadorRepository, enderecoRepository);
+            var enderecoController = new EnderecoController(prestadorRepository, enderecoRepository);
 
 
             //Act
-            var response = prestadorController.Get(1);
+            var response = enderecoController.Get(1);
 
             //Assert
             Assert.True(response.EnderecoId > 0);
@@ -104,6 +105,23 @@ namespace PrestadorService.UnitTest
             Assert.NotNull(response.Estado);
             Assert.NotNull(response.Cidade);
             Assert.NotNull(response.Complemento);
+        }
+
+        [Fact]
+        public void DeveExcluirEndereco()
+        {
+            //Arrange
+            IEnderecoRepository<Endereco> enderecoRepository = new EnderecoMockRepository();
+            IPrestadorRepository<Prestador> prestadorRepository = new PrestadorMockRepository();
+            var enderecoController = new EnderecoController(prestadorRepository, enderecoRepository);
+
+            //Act
+            var response = enderecoController.Delete(1);
+
+            //Assert
+            Assert.Equal("Sucesso ao Excluir a o Endereço", response);
+            Assert.True(!enderecoRepository.List().Any());
+
         }
     }
 }

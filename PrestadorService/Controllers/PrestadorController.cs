@@ -64,9 +64,22 @@ namespace PrestadorService.Controllers
         }
 
         [HttpDelete]
-        public IActionResult Delete(int id)
+        public string Delete(int id)
         {
-            return Ok();
+            var prestadorParaDeletar = _prestadorRepository.GetById(id);
+            if (prestadorParaDeletar != null)
+            {
+                //if(prestadorParaDeletar.Endereco != null)
+                //    _
+
+
+                _prestadorRepository.Delete(prestadorParaDeletar);
+                return "Sucesso ao Excluir o Prestador";
+            }
+            else
+            {
+                throw new Exception("Não foi encontrado um Prestador com os dados fornecidos.");
+            }
         }
 
     }
