@@ -98,7 +98,7 @@ namespace PrestadorService.UnitTest
             var response = dadosBancariosController.Delete(1);
 
             //Assert
-            Assert.Equal("Sucesso ao Excluir Dados Bancários", response);
+            Assert.Equal("{ response = 'Sucesso ao Excluir Dados Bancários' }", response);
             Assert.True(!dadosBancariosRepository.List().Any());
 
         }

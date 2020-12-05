@@ -74,7 +74,7 @@ namespace PrestadorService.Controllers
 
 
                 _prestadorRepository.Delete(prestadorParaDeletar);
-                return "Sucesso ao Excluir o Prestador";
+                return "{ response = 'Sucesso ao Excluir o Prestador' }";
             }
             else
             {

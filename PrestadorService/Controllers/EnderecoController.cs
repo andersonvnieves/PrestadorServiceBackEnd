@@ -85,7 +85,7 @@ namespace PrestadorService.Controllers
                 _prestadorRepository.Update(prestador);
 
                 _enderecoRepository.Delete(enderecoParaDeletar);
-                return "Sucesso ao Excluir a o Endereço";
+                return "{ response = 'Sucesso ao Excluir a o Endereço' }";
             }
             else
             {

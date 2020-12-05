@@ -129,7 +129,7 @@ namespace PrestadorService.UnitTest
             var response = prestadorController.Delete(1);
 
             //Assert
-            Assert.Equal("Sucesso ao Excluir o Prestador", response);
+            Assert.Equal("{ response = 'Sucesso ao Excluir o Prestador' }", response);
             Assert.True(!prestadorRepository.List().Any());
             
         }

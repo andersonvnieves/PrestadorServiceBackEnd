@@ -83,7 +83,7 @@ namespace PrestadorService.Controllers
                 _prestadorRepository.Update(prestador);
 
                 _dadosBancariosRepository.Delete(dadosBancariosParaDeletar);
-                return "Sucesso ao Excluir Dados Bancários";
+                return "{ response = 'Sucesso ao Excluir Dados Bancários' }";
             }
             else
             {
