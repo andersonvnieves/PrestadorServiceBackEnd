@@ -26,6 +26,24 @@ namespace PrestadorService.UnitTest.MockRepositories
                 ValidadeCNH = DateTime.Parse("2025-07-02"),
                 Email = "prestadorteste0@fiap.com.br",
                 Celular = "11988884447",
+                Endereco = new Endereco()
+                {
+                    EnderecoId = 1,
+                    Logradouro = "Avenida São João",
+                    Numero = "100",
+                    Bairro = "Santa Efigenia",
+                    CEP = "00000-555",
+                    Estado = "SP",
+                    Cidade = "São Paulo",
+                    Complemento = "Endereço de Teste 1"
+                },
+                DadosBancarios = new DadosBancarios()
+                {
+                    DadosBancariosId = 1,
+                    Banco = "FIAP",
+                    Agencia = "0001",
+                    ContaCorrente = "337399"
+                }
             });
         }
 

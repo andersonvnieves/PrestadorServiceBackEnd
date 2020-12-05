@@ -119,7 +119,7 @@ namespace PrestadorService.UnitTest
             var response = enderecoController.Delete(1);
 
             //Assert
-            Assert.Equal("{ response = 'Sucesso ao Excluir a o Endereço' }", response);
+            Assert.Equal("{ response = 'Sucesso ao Excluir o Endereço' }", response);
             Assert.True(!enderecoRepository.List().Any());
 
         }
